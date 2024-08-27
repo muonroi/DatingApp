@@ -1,0 +1,12 @@
+﻿{
+  "DatingApp": {
+    "commandName": "Project",
+    "dotnetRunMessages": true,
+    "launchBrowser": false,
+    "launchUrl": "swagger",
+    "applicationUrl": "https://localhost:5012",
+    "environmentVariables": {
+      "ASPNETCORE_ENVIRONMENT": "Development"
+    }
+  }
+}
