@@ -1,4 +1,11 @@
 {
-  "cSpell.words": ["appsettings", "Autofac", "Mediat", "Protobuf", "Serilog"],
+  "cSpell.words": [
+    "appsettings",
+    "Autofac",
+    "Mediat",
+    "Protobuf",
+    "Salf",
+    "Serilog"
+  ],
   "dotnet.server.useOmnisharp": false
 }

@@ -3,7 +3,6 @@ using System;
 using API.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -12,97 +11,115 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20240826142615_InitDb")]
+    [Migration("20240901075423_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
 
             modelBuilder.Entity("Muonroi.BuildingBlock.External.Entity.Identity.MLanguage", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<double>("CreatedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(107);
 
                     b.Property<int?>("CreatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(101);
 
                     b.Property<string>("CreatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(104);
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(111);
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(112);
+
                     b.Property<double?>("DeletedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(109);
 
                     b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(103);
 
                     b.Property<string>("DeletedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(106);
+
+                    b.Property<int?>("DeleterUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(115);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(116);
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(1);
 
                     b.Property<string>("Icon")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(110);
 
                     b.Property<bool>("IsDisabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(113);
+
+                    b.Property<double?>("LastModificationTimeTs")
+                        .HasColumnType("REAL")
+                        .HasColumnOrder(108);
+
+                    b.Property<int?>("LastModifierUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(114);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<double?>("UpdatedDateTS")
-                        .HasColumnType("float")
-                        .HasColumnOrder(108);
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("UpdatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(102);
 
                     b.Property<string>("UpdatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(105);
 
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasDatabaseName("IX_Name");
+                        .HasDatabaseName("IX_MLanguages_Name");
 
                     b.ToTable("MLanguages");
                 });
@@ -111,81 +128,103 @@ namespace API.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<double>("CreatedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(107);
 
                     b.Property<int?>("CreatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(101);
 
                     b.Property<string>("CreatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(104);
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(111);
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(112);
+
                     b.Property<double?>("DeletedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(109);
 
                     b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(103);
 
                     b.Property<string>("DeletedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(106);
+
+                    b.Property<int?>("DeleterUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(115);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(116);
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(110);
 
                     b.Property<bool>("IsGranted")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(113);
+
+                    b.Property<double?>("LastModificationTimeTs")
+                        .HasColumnType("REAL")
+                        .HasColumnOrder(108);
+
+                    b.Property<int?>("LastModifierUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(114);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("UpdatedDateTS")
-                        .HasColumnType("float")
-                        .HasColumnOrder(108);
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("UpdatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(102);
 
                     b.Property<string>("UpdatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(105);
 
                     b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasDatabaseName("IX_Name");
+                        .HasDatabaseName("IX_MPermissions_Name");
 
                     b.ToTable("MPermissions");
                 });
@@ -194,87 +233,109 @@ namespace API.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("CreatedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(107);
 
                     b.Property<int?>("CreatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(101);
 
                     b.Property<string>("CreatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(104);
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(111);
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(112);
+
                     b.Property<double?>("DeletedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(109);
 
                     b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(103);
 
                     b.Property<string>("DeletedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(106);
+
+                    b.Property<int?>("DeleterUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(115);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(116);
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(1);
 
                     b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(110);
 
                     b.Property<bool>("IsStatic")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(113);
+
+                    b.Property<double?>("LastModificationTimeTs")
+                        .HasColumnType("REAL")
+                        .HasColumnOrder(108);
+
+                    b.Property<int?>("LastModifierUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(114);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedName")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<double?>("UpdatedDateTS")
-                        .HasColumnType("float")
-                        .HasColumnOrder(108);
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("UpdatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(102);
 
                     b.Property<string>("UpdatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(105);
 
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasDatabaseName("IX_Name");
+                        .HasDatabaseName("IX_MRoles_Name");
 
                     b.ToTable("MRoles");
                 });
@@ -283,183 +344,187 @@ namespace API.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("AuthenticationSource")
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("CreatedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(107);
 
                     b.Property<int?>("CreatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(101);
 
                     b.Property<string>("CreatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(104);
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(111);
 
                     b.Property<int?>("CreatorUserId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(112);
 
                     b.Property<double?>("DeletedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(109);
 
                     b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(103);
 
                     b.Property<string>("DeletedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(106);
 
                     b.Property<int?>("DeleterUserId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(115);
 
                     b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(116);
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("EmailConfirmationCode")
                         .HasMaxLength(328)
-                        .HasColumnType("nvarchar(328)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(1);
 
                     b.Property<string>("GoogleAuthenticatorKey")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(110);
 
                     b.Property<bool>("IsEmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsLockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsPhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsTwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(113);
+
+                    b.Property<double?>("LastModificationTimeTs")
+                        .HasColumnType("REAL")
+                        .HasColumnOrder(108);
 
                     b.Property<int?>("LastModifierUserId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(114);
 
                     b.Property<DateTime?>("LockoutEndDateUtc")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmailAddress")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedUserName")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordResetCode")
                         .HasMaxLength(328)
-                        .HasColumnType("nvarchar(328)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("ProfilePictureId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("RecoveryCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Salf")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("ShouldChangePasswordOnNextLogin")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SignInToken")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("SignInTokenExpireTimeUtc")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<double?>("UpdatedDateTS")
-                        .HasColumnType("float")
-                        .HasColumnOrder(108);
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("UpdatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(102);
 
                     b.Property<string>("UpdatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(105);
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserName")
                         .IsUnique()
-                        .HasDatabaseName("IX_UserName");
+                        .HasDatabaseName("IX_MUser_UserName");
 
                     b.ToTable("MUsers");
                 });
@@ -468,79 +533,101 @@ namespace API.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<double>("CreatedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(107);
 
                     b.Property<int?>("CreatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(101);
 
                     b.Property<string>("CreatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(104);
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(111);
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(112);
+
                     b.Property<double?>("DeletedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(109);
 
                     b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(103);
 
                     b.Property<string>("DeletedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(106);
+
+                    b.Property<int?>("DeleterUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(115);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(116);
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(110);
 
-                    b.Property<double?>("UpdatedDateTS")
-                        .HasColumnType("float")
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(113);
+
+                    b.Property<double?>("LastModificationTimeTs")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(108);
 
+                    b.Property<int?>("LastModifierUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(114);
+
                     b.Property<int?>("UpdatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(102);
 
                     b.Property<string>("UpdatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(105);
 
                     b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("INTEGER");
 
                     b.Property<long?>("UserLinkId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserName")
                         .IsUnique()
-                        .HasDatabaseName("IX_UserName");
+                        .HasDatabaseName("IX_MUserAccount_UserName");
 
                     b.ToTable("MUserAccounts");
                 });
@@ -549,76 +636,98 @@ namespace API.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<double>("CreatedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(107);
 
                     b.Property<int?>("CreatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(101);
 
                     b.Property<string>("CreatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(104);
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(111);
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(112);
+
                     b.Property<double?>("DeletedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(109);
 
                     b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(103);
 
                     b.Property<string>("DeletedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(106);
 
+                    b.Property<int?>("DeleterUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(115);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(116);
+
                     b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(110);
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(113);
+
+                    b.Property<double?>("LastModificationTimeTs")
+                        .HasColumnType("REAL")
+                        .HasColumnOrder(108);
+
+                    b.Property<int?>("LastModifierUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(114);
 
                     b.Property<string>("LoginProvider")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<double?>("UpdatedDateTS")
-                        .HasColumnType("float")
-                        .HasColumnOrder(108);
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("UpdatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(102);
 
                     b.Property<string>("UpdatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(105);
 
                     b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
                         .IsUnique()
-                        .HasDatabaseName("IX_UserId");
+                        .HasDatabaseName("IX_MUserLogin_UserId");
 
                     b.ToTable("MUserLogins");
                 });
@@ -627,91 +736,109 @@ namespace API.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("BrowserInfo")
                         .IsRequired()
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClientIpAddress")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClientName")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("CreatedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(107);
 
                     b.Property<int?>("CreatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(101);
 
                     b.Property<string>("CreatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(104);
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(112);
 
                     b.Property<double?>("DeletedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(109);
 
                     b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(103);
 
                     b.Property<string>("DeletedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(106);
 
+                    b.Property<int?>("DeleterUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(115);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(116);
+
                     b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(110);
 
-                    b.Property<byte>("Result")
-                        .HasColumnType("tinyint");
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(113);
 
-                    b.Property<double?>("UpdatedDateTS")
-                        .HasColumnType("float")
+                    b.Property<double?>("LastModificationTimeTs")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(108);
 
+                    b.Property<int?>("LastModifierUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(114);
+
+                    b.Property<byte>("Result")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("UpdatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(102);
 
                     b.Property<string>("UpdatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(105);
 
                     b.Property<long?>("UserId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserNameOrEmailAddress")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserNameOrEmailAddress")
-                        .HasDatabaseName("IX_UserNameOrEmailAddress");
+                        .HasDatabaseName("IX_MUserLoginAttempt_UserNameOrEmailAddress");
 
                     b.ToTable("MUserLoginAttempts");
                 });
@@ -719,56 +846,80 @@ namespace API.Migrations
             modelBuilder.Entity("Muonroi.BuildingBlock.External.Entity.Identity.MUserRole", b =>
                 {
                     b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("INTEGER");
 
                     b.Property<long>("RoleId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("CreatedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(107);
 
                     b.Property<int?>("CreatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(101);
 
                     b.Property<string>("CreatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(104);
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(111);
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(112);
+
                     b.Property<double?>("DeletedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(109);
 
                     b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(103);
 
                     b.Property<string>("DeletedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(106);
 
+                    b.Property<int?>("DeleterUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(115);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(116);
+
                     b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(110);
 
-                    b.Property<double?>("UpdatedDateTS")
-                        .HasColumnType("float")
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(113);
+
+                    b.Property<double?>("LastModificationTimeTs")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(108);
 
+                    b.Property<int?>("LastModifierUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(114);
+
                     b.Property<int?>("UpdatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(102);
 
                     b.Property<string>("UpdatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(105);
 
                     b.HasKey("UserId", "RoleId");
@@ -780,82 +931,104 @@ namespace API.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
                     b.Property<double>("CreatedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(107);
 
                     b.Property<int?>("CreatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(101);
 
                     b.Property<string>("CreatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(104);
 
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(111);
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(112);
+
                     b.Property<double?>("DeletedDateTS")
-                        .HasColumnType("float")
+                        .HasColumnType("REAL")
                         .HasColumnOrder(109);
 
                     b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(103);
 
                     b.Property<string>("DeletedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(106);
 
+                    b.Property<int?>("DeleterUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(115);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(116);
+
                     b.Property<Guid>("EntityId")
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("ExpireDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(110);
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("TEXT")
+                        .HasColumnOrder(113);
+
+                    b.Property<double?>("LastModificationTimeTs")
+                        .HasColumnType("REAL")
+                        .HasColumnOrder(108);
+
+                    b.Property<int?>("LastModifierUserId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(114);
 
                     b.Property<string>("LoginProvider")
                         .IsRequired()
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<double?>("UpdatedDateTS")
-                        .HasColumnType("float")
-                        .HasColumnOrder(108);
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("UpdatedUserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnOrder(102);
 
                     b.Property<string>("UpdatedUserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasColumnOrder(105);
 
                     b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Value")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LoginProvider")
-                        .HasDatabaseName("IX_LoginProvider");
+                        .HasDatabaseName("IX_MUserToken_LoginProvider");
 
                     b.ToTable("MUserTokens");
                 });
